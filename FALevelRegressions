@@ -1,0 +1,63 @@
+#Code in STATA format
+
+xtset Season
+encode NEWTEAM, gen (cNEWTEAM) 
+rename DOLLARS SALARY
+rename YRS LENGTH
+drop if PA < 150
+sum SALARY AAV LENGTH OBP SLG OPS wRC WPA
+cor SALARY AAV LENGTH OBP SLG OPS wRC WPA
+gen ln_SALARY=log(SALARY)
+gen ln_AAV=log(AAV)
+gen ln_LENGTH=log(LENGTH)
+gen ln_OBP=log(OBP)
+gen ln_SLG=log(SLG)
+gen ln_OPS=log(OPS)
+gen ln_wRC=log(wRC)
+gen ln_WPA=log(WPA)
+gen ln_AGE=log(Age)
+reg ln_SALARY ln_OBP ln_AGE
+hettest
+xtgls ln_SALARY ln_OBP ln_AGE
+reg ln_AAV ln_OBP ln_AGE
+hettest 
+xtgls ln_AAV ln_OBP ln_AGE
+reg ln_LENGTH ln_OBP ln_AGE
+hettest
+xtgls ln_LENGTH ln_OBP ln_AGE
+reg ln_SALARY ln_OBP ln_SLG ln_AGE
+hettest 
+xtgls ln_SALARY ln_OBP ln_SLG ln_AGE
+reg ln_AAV ln_OBP ln_SLG ln_AGE
+hettest
+xtgls ln_AAV ln_OBP ln_SLG ln_AGE
+reg ln_LENGTH ln_OBP ln_SLG ln_AGE
+hettest
+xtgls ln_LENGTH ln_OBP ln_SLG ln_AGE
+reg ln_SALARY ln_OPS ln_AGE
+hettest
+xtgls ln_SALARY ln_OPS ln_AGE
+reg ln_AAV ln_OPS ln_AGE
+hettest
+xtgls ln_AAV ln_OPS ln_AGE
+reg ln_LENGTH ln_OPS ln_AGE
+hettest 
+xtgls ln_LENGTH ln_OPS ln_AGE
+reg ln_SALARY ln_OBP ln_wRC ln_WPA ln_AGE
+hettest
+xtgls  ln_SALARY ln_OBP ln_wRC ln_WPA ln_AGE
+reg ln_AAV ln_OBP ln_wRC ln_WPA ln_AGE
+hettest 
+xtgls ln_AAV ln_OBP ln_wRC ln_WPA ln_AGE
+reg ln_LENGTH ln_OBP ln_wRC ln_WPA ln_AGE
+hettest
+xtgls ln_LENGTH ln_OBP ln_wRC ln_WPA ln_AGE
+reg ln_SALARY ln_OBP ln_SLG ln_wRC ln_WPA ln_AGE
+hettest
+xtgls ln_SALARY ln_OBP ln_SLG ln_wRC ln_WPA ln_AGE
+reg ln_AAV ln_OBP ln_SLG ln_wRC ln_WPA ln_AGE
+hettest 
+xtgls ln_AAV ln_OBP ln_SLG ln_wRC ln_WPA ln_AGE
+reg ln_LENGTH ln_OBP ln_SLG ln_wRC ln_WPA ln_AGE
+hettest
+xtgls ln_LENGTH ln_OBP ln_SLG ln_wRC ln_WPA ln_AGE 
